@@ -12,8 +12,8 @@ export class ProductsService {
     private productRepository: ProductRepository,
   ) {}
 
-  async getProducts(): Promise<Product[]> {
-    return await this.productRepository.getProducts();
+  async getAllProducts(): Promise<Product[]> {
+    return await this.productRepository.queryAllProducts();
   }
 
   async insertProducts(products: CreateProductDto[]): Promise<Product[]> {

@@ -1,6 +1,7 @@
 import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import { CreateProductBody } from 'shared';
 
-export class CreateProductDto {
+export class CreateProductDto implements CreateProductBody {
   @IsString()
   @IsNotEmpty()
   name!: string;

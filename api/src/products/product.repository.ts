@@ -7,42 +7,15 @@ import { Product } from './product.entity';
 export class ProductRepository extends Repository<Product> {
   private logger = new Logger('ProductRepository');
 
-  async getProducts(): Promise<Product[]> {
+  async queryAllProducts(): Promise<Product[]> {
     this.logger.log('Querying all products in db');
-    // const { status, searchTerm } = filterDto;
     const query = this.createQueryBuilder('product');
-
-    // query.where('task.userId = :userId', { userId: user.id });
-
-    // if (status) {
-    //   query.andWhere('task.status = :status', { status });
-    // }
-
-    // if (searchTerm) {
-    //   query.andWhere(
-    //     '(task.title LIKE :searchTerm OR task.description LIKE :searchTerm)',
-    //     { searchTerm: `%${searchTerm}%` },
-    //   );
-    // }
-
-    // try {
-    //   const tasks = await query.getMany();
-    //   return tasks;
-    // } catch (error) {
-    //   this.logger.error(
-    //     `Failed to get task for user "${
-    //       user.username
-    //     }", Filters: ${JSON.stringify(filterDto)}`,
-    //     error.stack,
-    //   );
-    //   throw new InternalServerErrorException();
-    // }
 
     return await query.getMany();
   }
 
   async insertProduct(createProductDto: CreateProductDto): Promise<Product> {
-    this.logger.log('Insert product');
+    this.logger.log('Inserting product using dto: ', createProductDto);
 
     const product = new Product();
 
@@ -68,7 +41,7 @@ export class ProductRepository extends Repository<Product> {
   }
 
   async deleteAllProducts(): Promise<Product[]> {
-    this.logger.log('Delete all products');
+    this.logger.log('Deleting all products');
 
     const results = await this.query(`DELETE FROM ${this.metadata.tableName};`);
 
